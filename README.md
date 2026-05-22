@@ -16,20 +16,6 @@ A reading-library Android app built as a study of modern Android architecture: M
 | Fonts | Lora + Inter via Google Fonts downloadable provider |
 | Min / Target / Compile SDK | 26 / 36 / 36 |
 
-## Module Layout
-
-```
-PageKeeper/
-├── app/                      Composition root: MainActivity, Navigation, Hilt application
-├── build-logic/convention/   Gradle convention plugins (pagekeeper.*)
-└── core/
-    ├── data/                 Repository implementations (Hilt-aware)
-    ├── domain/               Repository interfaces (pure Kotlin/JVM, no Android)
-    └── designsystem/         Material 3 theming: colors, typography, fonts
-```
-
-Dependency direction: `:app` → `:core:data` → `:core:domain` (one-way). `:core:designsystem` is depended on by the presentation layer in `:app` only.
-
 ## Convention Plugins
 
 The `build-logic` composite build keeps every module's `build.gradle.kts` small. Each module just picks the conventions it needs:
@@ -53,10 +39,6 @@ The design tokens live in `:core:designsystem`:
 - `Theme.kt` — `PageKeeperTheme { ... }` wrapper that switches color schemes and provides the extra-colors composition local.
 
 The Google Fonts cert array ships in `core/designsystem/src/main/res/values/font_certs.xml`.
-
-## Clean Architecture, No Use Cases
-
-Repositories are injected directly into ViewModels. Domain stays pure Kotlin so it never pulls in `android.*`. Data binds implementations to interfaces via a Hilt `@Module` in `:app/di/`.
 
 ## Build & Run
 
