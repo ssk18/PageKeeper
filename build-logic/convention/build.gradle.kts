@@ -15,6 +15,7 @@ dependencies {
     compileOnly(libs.compose.gradle.plugin)
     compileOnly(libs.ksp.gradle.plugin)
     compileOnly(libs.hilt.gradle.plugin)
+    compileOnly(libs.spotless.gradle.plugin)
 }
 
 gradlePlugin {
@@ -38,6 +39,10 @@ gradlePlugin {
         register("hilt") {
             id = "pagekeeper.hilt"
             implementationClass = "HiltConventionPlugin"
+        }
+        register("root") {
+            id = "pagekeeper.root"
+            implementationClass = "RootConventionPlugin"
         }
     }
 }

@@ -1,3 +1,4 @@
+import com.ssk.pagekeeper.buildlogic.configureSpotlessForJvm
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -18,6 +19,8 @@ class JvmLibraryConventionPlugin : Plugin<Project> {
             extensions.configure<KotlinJvmProjectExtension> {
                 jvmToolchain(17)
             }
+
+            configureSpotlessForJvm()
         }
     }
 }

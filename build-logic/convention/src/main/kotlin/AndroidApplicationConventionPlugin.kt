@@ -1,4 +1,5 @@
 import com.android.build.api.dsl.ApplicationExtension
+import com.ssk.pagekeeper.buildlogic.configureSpotlessForAndroid
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -27,6 +28,8 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
             extensions.configure<KotlinAndroidProjectExtension> {
                 jvmToolchain(17)
             }
+
+            configureSpotlessForAndroid()
         }
     }
 }
