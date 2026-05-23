@@ -5,6 +5,7 @@ import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
@@ -24,4 +25,5 @@ class MainScreenViewModelTest {
 
 private class FakeDataRepository : DataRepository {
     override val data: Flow<List<String>> = flow { emit(listOf("Sample")) }
+    override val isReady: Flow<Boolean> = flowOf(true)
 }
