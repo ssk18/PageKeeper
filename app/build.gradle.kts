@@ -43,6 +43,9 @@ dependencies {
     implementation(project(":core:domain"))
     implementation(project(":core:designsystem"))
 
+    // Feature modules
+    implementation(project(":feature:library"))
+
     // Core Android
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

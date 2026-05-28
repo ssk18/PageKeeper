@@ -49,9 +49,9 @@ val PageKeeperTypography = Typography(
     ),
     titleLarge = TextStyle(
         fontFamily = Lora,
-        fontWeight = FontWeight.Medium,
-        fontSize = 17.sp,
-        lineHeight = 20.sp,
+        fontWeight = FontWeight.Bold,
+        fontSize = 25.sp,
+        lineHeight = 30.sp,
     ),
     bodyLarge = TextStyle(
         fontFamily = Inter,
@@ -61,7 +61,7 @@ val PageKeeperTypography = Typography(
     ),
     bodyMedium = TextStyle(
         fontFamily = Inter,
-        fontWeight = FontWeight.Medium,
+        fontWeight = FontWeight.Normal,
         fontSize = 15.sp,
         lineHeight = 18.sp,
     ),

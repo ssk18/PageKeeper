@@ -32,6 +32,10 @@ gradlePlugin {
             id = "pagekeeper.android.library.compose"
             implementationClass = "AndroidLibraryComposeConventionPlugin"
         }
+        register("androidFeature") {
+            id = "pagekeeper.android.feature"
+            implementationClass = "AndroidFeatureConventionPlugin"
+        }
         register("jvmLibrary") {
             id = "pagekeeper.jvm.library"
             implementationClass = "JvmLibraryConventionPlugin"
