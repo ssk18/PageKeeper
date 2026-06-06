@@ -29,6 +29,18 @@ val LibraryIcon: ImageVector
     @Composable
     get() = ImageVector.vectorResource(R.drawable.ic_menu_library)
 
-val FinishIcon: ImageVector
+val UnfinishIcon: ImageVector
     @Composable
     get() = ImageVector.vectorResource(R.drawable.ic_finish)
+
+val FinishIcon: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(R.drawable.ic_finished)
+
+val ShareIcon: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(R.drawable.ic_share)
+
+val DeleteIcon: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(R.drawable.ic_delete)
