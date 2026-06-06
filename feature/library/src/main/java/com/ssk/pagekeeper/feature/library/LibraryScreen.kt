@@ -80,7 +80,7 @@ fun LibraryScreen(
                 LibraryContent(
                     books = state.books,
                     onImportClick = onImportClick,
-                    contentPadding = PaddingValues(16.dp),
+                    contentPadding = PaddingValues(vertical = 16.dp),
                     modifier = Modifier.fillMaxSize(),
                 )
             }
@@ -143,13 +143,11 @@ private fun LibraryContent(
         contentPadding = contentPadding,
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        item(key = "import-cta") {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                ImportBookButton(onClick = onImportClick)
-            }
-        }
         items(books, key = { it.id }) { book ->
-            BookCard(book = book)
+            BookCard(
+                book = book,
+                isFinished = false
+            )
         }
     }
 }
