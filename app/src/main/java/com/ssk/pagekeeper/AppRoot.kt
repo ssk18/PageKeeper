@@ -19,7 +19,10 @@ import com.ssk.pagekeeper.feature.library.components.DrawerDestination
 import com.ssk.pagekeeper.feature.library.components.PageKeeperDrawerSheet
 import com.ssk.pagekeeper.feature.library.Library
 import com.ssk.pagekeeper.feature.library.LibraryRoute
+import com.ssk.pagekeeper.feature.library.rememberBookPicker
 import com.ssk.pagekeeper.presentation.splash.SplashScreen
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 /**
@@ -39,6 +42,15 @@ fun AppRoot(
         val scope = rememberCoroutineScope()
         var selectedDestination by remember { mutableStateOf(DrawerDestination.Library) }
 
+        // One-shot delivery: Channel emits each picked URI exactly once to the active
+        // route's ObserveAsEvents collector. No replay on recomposition or rotation.
+        val pickedUriChannel = remember { Channel<String>(Channel.BUFFERED) }
+        val pickedUriEvents = remember(pickedUriChannel) { pickedUriChannel.receiveAsFlow() }
+
+        val pickBook = rememberBookPicker { uri ->
+            scope.launch { pickedUriChannel.send(uri) }
+        }
+
         // `targetValue` flips the moment `open()`/`close()` is called — before the slide
         // animation completes. Using it (vs `isOpen`, which lags) lets the menu icon's
         // rotation/crossfade kick off in sync with the drawer's slide-in.
@@ -55,6 +67,10 @@ fun AppRoot(
                     },
                     isOpen = isMenuOpen,
                     onDrawerClose = { scope.launch { drawerState.close() } },
+                    onImportClick = {
+                        scope.launch { drawerState.close() }
+                        pickBook()
+                    },
                 )
             },
         ) {
@@ -68,6 +84,8 @@ fun AppRoot(
                             isMenuOpen = isMenuOpen,
                             onNavDrawerClick = { scope.launch { drawerState.open() } },
                             onSearchClick = { /* TODO: search route lands in a later milestone */ },
+                            onImportClick = pickBook,
+                            pickedUriEvents = pickedUriEvents,
                         )
                     }
                 },

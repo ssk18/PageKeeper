@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
@@ -18,17 +19,18 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ssk.pagekeeper.core.designsystem.theme.FavoriteIcon
-import com.ssk.pagekeeper.core.designsystem.theme.FinishIcon
+import com.ssk.pagekeeper.core.designsystem.theme.UnfinishIcon
 import com.ssk.pagekeeper.core.designsystem.theme.LibraryIcon
 import com.ssk.pagekeeper.core.designsystem.theme.PageKeeperTheme
 
 @Composable
 fun PageKeeperDrawerSheet(
+    modifier: Modifier = Modifier,
     isOpen: Boolean,
     selected: DrawerDestination,
     onSelected: (DrawerDestination) -> Unit,
     onDrawerClose: () -> Unit,
-    modifier: Modifier = Modifier,
+    onImportClick: () -> Unit,
 ) {
     ModalDrawerSheet(modifier = modifier.width(DRAWER_WIDTH)) {
         Column(Modifier.verticalScroll(rememberScrollState())) {
@@ -40,16 +42,21 @@ fun PageKeeperDrawerSheet(
             )
             Spacer(Modifier.height(12.dp))
             ImportBookButton(
-                onClick = {}
+                onClick = {
+                    onImportClick()
+                },
+                modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding)
             )
-            Spacer(Modifier.height(12.dp))
+            Spacer(Modifier.height(60.dp))
             DrawerDestination.entries.forEach { destination ->
                 NavigationDrawerItem(
                     icon = { Icon(destination.iconAsset(), contentDescription = null) },
                     label = { Text(destination.label) },
                     selected = destination == selected,
                     onClick = { onSelected(destination) },
-                    modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding),
+                    modifier = Modifier
+                        .padding(NavigationDrawerItemDefaults.ItemPadding)
+                        .widthIn(max = 168.dp),
                 )
             }
         }
@@ -60,7 +67,7 @@ fun PageKeeperDrawerSheet(
 fun DrawerDestination.iconAsset(): ImageVector = when (this) {
     DrawerDestination.Library -> LibraryIcon
     DrawerDestination.Favorites -> FavoriteIcon
-    DrawerDestination.Finished -> FinishIcon
+    DrawerDestination.Finished -> UnfinishIcon
 }
 
 val DRAWER_WIDTH = 280.dp
@@ -73,7 +80,8 @@ private fun PageKeeperDrawerSheetLibraryPreview() {
             selected = DrawerDestination.Library,
             onSelected = {},
             isOpen = true,
-            onDrawerClose = {}
+            onDrawerClose = {},
+            onImportClick = {},
         )
     }
 }
@@ -86,7 +94,8 @@ private fun PageKeeperDrawerSheetFavoritesPreview() {
             selected = DrawerDestination.Favorites,
             onSelected = {},
             isOpen = true,
-            onDrawerClose = {}
+            onDrawerClose = {},
+            onImportClick = {},
         )
     }
 }
@@ -99,7 +108,8 @@ private fun PageKeeperDrawerSheetFinishedPreview() {
             selected = DrawerDestination.Finished,
             onSelected = {},
             isOpen = true,
-            onDrawerClose = {}
+            onDrawerClose = {},
+            onImportClick = {},
         )
     }
 }
