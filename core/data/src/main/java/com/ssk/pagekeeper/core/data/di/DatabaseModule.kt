@@ -20,7 +20,9 @@ object DatabaseModule {
         context = context,
         klass = BookDatabase::class.java,
         name = DATABASE_NAME,
-    ).build()
+    )
+        .fallbackToDestructiveMigration(dropAllTables = true)
+        .build()
 
     @Provides
     fun provideBookDao(database: BookDatabase): BookDao = database.bookDao()

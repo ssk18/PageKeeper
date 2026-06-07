@@ -61,5 +61,17 @@ class BookRepositoryImpl @Inject constructor(
         }.getOrElse { ImportResult.Error(it) }
     }
 
+    override suspend fun deleteBook(bookId: String) {
+        withContext(Dispatchers.IO) {
+            dao.deleteBook(bookId)
+        }
+    }
+
+    override suspend fun setFavorite(bookId: String, isFavorite: Boolean) {
+        withContext(Dispatchers.IO) {
+            dao.setFavorite(bookId, isFavorite)
+        }
+    }
+
     private inline fun String?.orFallback(fallback: () -> String): String = this?.takeIf { it.isNotBlank() } ?: fallback()
 }

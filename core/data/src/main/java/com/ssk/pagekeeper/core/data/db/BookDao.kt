@@ -1,6 +1,7 @@
 package com.ssk.pagekeeper.core.data.db
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -18,4 +19,10 @@ interface BookDao {
 
     @Query("SELECT EXISTS(SELECT 1 FROM books WHERE id = :id)")
     suspend fun exists(id: String): Boolean
+
+    @Query("DELETE FROM books WHERE id = :bookId")
+    suspend fun deleteBook(bookId: String)
+
+    @Query("UPDATE books SET isFavorite = :isFavorite WHERE id = :bookId")
+    suspend fun setFavorite(bookId: String, isFavorite: Boolean)
 }

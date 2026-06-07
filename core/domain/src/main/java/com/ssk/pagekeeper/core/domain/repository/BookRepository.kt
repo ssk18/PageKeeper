@@ -12,6 +12,8 @@ interface BookRepository {
      * Android-specific types). Returns one of the [ImportResult] variants.
      */
     suspend fun importBook(sourceUri: String): ImportResult
+    suspend fun deleteBook(bookId: String)
+    suspend fun setFavorite(bookId: String, isFavorite: Boolean)
 }
 
 sealed interface ImportResult {

@@ -40,9 +40,13 @@ import kotlin.time.ExperimentalTime
 
 @Composable
 fun BookCard(
+    modifier: Modifier = Modifier,
     book: Book,
     isFinished: Boolean,
-    modifier: Modifier = Modifier,
+    onFavoriteClick: (String) -> Unit,
+    onShareClick: (String) -> Unit,
+    onFinishedClick: (String) -> Unit,
+    onDeleteClick: (String) -> Unit
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
@@ -87,16 +91,44 @@ fun BookCard(
                 }
 
                 Row(modifier = Modifier.fillMaxWidth()) {
-                    IconButton(onClick = {}) { Icon(FavoriteIcon, contentDescription = "Favorite") }
-                    IconButton(onClick = {}) {
+                    IconButton(
+                        onClick = {
+                            onFavoriteClick(book.id)
+                        }
+                    ) {
+                        Icon(
+                            FavoriteIcon,
+                            contentDescription = "Favorite"
+                        )
+                    }
+                    IconButton(
+                        onClick = {
+                            onFinishedClick(book.id)
+                        }
+                    ) {
                         Icon(
                             if (isFinished) FinishIcon else UnfinishIcon,
                             contentDescription = if (isFinished) "Mark unfinished" else "Mark finished"
                         )
                     }
-                    IconButton(onClick = {}) { Icon(ShareIcon, contentDescription = "Share") }
+                    IconButton(
+                        onClick = {
+                            onShareClick(book.id)
+                        }
+                    ) {
+                        Icon(ShareIcon, contentDescription = "Share")
+                    }
                     Spacer(Modifier.weight(1f))
-                    IconButton(onClick = {}) { Icon(DeleteIcon, contentDescription = "Delete") }
+                    IconButton(
+                        onClick = {
+                            onDeleteClick(book.id)
+                        }
+                    ) {
+                        Icon(
+                            DeleteIcon,
+                            contentDescription = "Delete"
+                        )
+                    }
                 }
             }
         }
@@ -127,6 +159,7 @@ private fun BookCover(coverPath: String?, modifier: Modifier = Modifier) {
 private fun BookCardPreview() {
     PageKeeperTheme {
         BookCard(
+            modifier = Modifier.padding(16.dp),
             book = Book(
                 id = "preview",
                 title = "The Adventures of Tom Sawyer",
@@ -136,7 +169,10 @@ private fun BookCardPreview() {
                 dateAdded = Clock.System.now(),
             ),
             isFinished = false,
-            modifier = Modifier.padding(16.dp),
+            onFavoriteClick = {},
+            onShareClick = {},
+            onFinishedClick = {},
+            onDeleteClick = {}
         )
     }
 }

@@ -34,6 +34,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.ssk.pagekeeper.core.designsystem.theme.PageKeeperTheme
 import com.ssk.pagekeeper.core.domain.model.Book
 import com.ssk.pagekeeper.feature.library.components.ImportBookButton
@@ -78,10 +79,22 @@ fun LibraryScreen(
                 )
             } else {
                 LibraryContent(
+                    modifier = Modifier.fillMaxSize(),
                     books = state.books,
                     onImportClick = onImportClick,
                     contentPadding = PaddingValues(vertical = 16.dp),
-                    modifier = Modifier.fillMaxSize(),
+                    onFavoriteClick = { id ->
+                        onAction(LibraryAction.OnFavoriteClick(id))
+                    },
+                    onShareClick = { id ->
+                        onAction(LibraryAction.OnShareClick(id))
+                    },
+                    onFinishedClick = {id ->
+                        onAction(LibraryAction.OnFinishClick(id))
+                    },
+                    onDeleteClick = { id ->
+                        onAction(LibraryAction.OnDeleteClick(id))
+                    }
                 )
             }
 
@@ -133,10 +146,14 @@ private fun LibraryEmptyState(
 
 @Composable
 private fun LibraryContent(
+    modifier: Modifier = Modifier,
     books: List<Book>,
     onImportClick: () -> Unit,
     contentPadding: PaddingValues,
-    modifier: Modifier = Modifier,
+    onFavoriteClick: (String) -> Unit,
+    onShareClick: (String) -> Unit,
+    onFinishedClick: (String) -> Unit,
+    onDeleteClick: (String) -> Unit
 ) {
     LazyColumn(
         modifier = modifier,
@@ -146,7 +163,11 @@ private fun LibraryContent(
         items(books, key = { it.id }) { book ->
             BookCard(
                 book = book,
-                isFinished = false
+                isFinished = false,
+                onFavoriteClick = onFavoriteClick,
+                onShareClick = onShareClick,
+                onFinishedClick = onFinishedClick,
+                onDeleteClick = onDeleteClick
             )
         }
     }
