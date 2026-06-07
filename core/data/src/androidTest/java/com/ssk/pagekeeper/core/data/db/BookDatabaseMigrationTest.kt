@@ -4,7 +4,6 @@ import androidx.room.testing.MigrationTestHelper
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.Assert.assertEquals
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -18,17 +17,6 @@ class BookDatabaseMigrationTest {
         BookDatabase::class.java,
     )
 
-    /**
-     * Verifies v1 → v2 retains existing rows and stamps both new flags to false.
-     *
-     * Ignored until `schemas/com.ssk.pagekeeper.core.data.db.BookDatabase/1.json` is captured.
-     * The v1 schema predates `exportSchema = true`, so it must be dumped retroactively.
-     *
-     * To capture: `git worktree add -d ../pk-v1 2ca421e`, cherry-pick the Hilt metadata fix and the
-     * Room KSP schema arg into the worktree, build `:core:data`, copy the produced `1.json`
-     * into `core/data/schemas/com.ssk.pagekeeper.core.data.db.BookDatabase/`, remove `@Ignore`.
-     */
-    @Ignore("Awaiting v1 schema capture — see kdoc")
     @Test
     fun migrate1To2_seedsRowsRetainedAndFlagsDefaultFalse() {
         helper.createDatabase(TEST_DB, 1).apply {
