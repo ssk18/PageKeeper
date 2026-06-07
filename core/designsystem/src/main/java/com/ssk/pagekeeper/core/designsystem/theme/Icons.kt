@@ -25,6 +25,10 @@ val FavoriteIcon: ImageVector
     @Composable
     get() = ImageVector.vectorResource(R.drawable.ic_favorites)
 
+val FilledFavoriteIcon: ImageVector
+    @Composable
+    get() = ImageVector.vectorResource(R.drawable.ic_favorite)
+
 val LibraryIcon: ImageVector
     @Composable
     get() = ImageVector.vectorResource(R.drawable.ic_menu_library)

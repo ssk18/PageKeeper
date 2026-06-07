@@ -81,6 +81,7 @@ fun LibraryScreen(
                 LibraryContent(
                     modifier = Modifier.fillMaxSize(),
                     books = state.books,
+                    isFinished = false,
                     onImportClick = onImportClick,
                     contentPadding = PaddingValues(vertical = 16.dp),
                     onFavoriteClick = { id ->
@@ -148,6 +149,7 @@ private fun LibraryEmptyState(
 private fun LibraryContent(
     modifier: Modifier = Modifier,
     books: List<Book>,
+    isFinished: Boolean,
     onImportClick: () -> Unit,
     contentPadding: PaddingValues,
     onFavoriteClick: (String) -> Unit,
@@ -163,7 +165,7 @@ private fun LibraryContent(
         items(books, key = { it.id }) { book ->
             BookCard(
                 book = book,
-                isFinished = false,
+                isFinished = isFinished,
                 onFavoriteClick = onFavoriteClick,
                 onShareClick = onShareClick,
                 onFinishedClick = onFinishedClick,

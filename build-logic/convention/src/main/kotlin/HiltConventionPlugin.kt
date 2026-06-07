@@ -14,9 +14,13 @@ class HiltConventionPlugin : Plugin<Project> {
             pluginManager.withPlugin("com.android.base") {
                 pluginManager.apply("com.google.dagger.hilt.android")
 
+                val kotlinVersion = libs.findVersion("kotlin").get().requiredVersion
                 dependencies {
                     add("implementation", libs.findLibrary("hilt-android").get())
                     add("ksp", libs.findLibrary("hilt-compiler").get())
+                    // Hilt 2.59.x ships an older kotlin-metadata-jvm that can't read
+                    // metadata stamped by Kotlin 2.4+. Override it on the KSP classpath.
+                    add("ksp", "org.jetbrains.kotlin:kotlin-metadata-jvm:$kotlinVersion")
                 }
             }
         }

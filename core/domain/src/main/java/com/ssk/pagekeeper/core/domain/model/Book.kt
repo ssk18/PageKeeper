@@ -19,4 +19,5 @@ data class Book(
     val filePath: String,
     val dateAdded: Instant,
     val isFavorite: Boolean = false,
+    val isFinished: Boolean = false,
 )

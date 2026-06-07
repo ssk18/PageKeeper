@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.ssk.pagekeeper.core.designsystem.theme.DeleteIcon
 import com.ssk.pagekeeper.core.designsystem.theme.FavoriteIcon
+import com.ssk.pagekeeper.core.designsystem.theme.FilledFavoriteIcon
 import com.ssk.pagekeeper.core.designsystem.theme.FinishIcon
 import com.ssk.pagekeeper.core.designsystem.theme.UnfinishIcon
 import com.ssk.pagekeeper.core.designsystem.theme.PageKeeperTheme
@@ -97,7 +98,7 @@ fun BookCard(
                         }
                     ) {
                         Icon(
-                            FavoriteIcon,
+                            if (book.isFavorite) FilledFavoriteIcon else FavoriteIcon,
                             contentDescription = "Favorite"
                         )
                     }
@@ -167,6 +168,7 @@ private fun BookCardPreview() {
                 coverPath = null,
                 filePath = "/tmp/preview.fb2",
                 dateAdded = Clock.System.now(),
+                isFavorite = true,
             ),
             isFinished = false,
             onFavoriteClick = {},

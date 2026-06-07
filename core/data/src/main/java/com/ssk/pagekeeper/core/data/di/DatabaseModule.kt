@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.ssk.pagekeeper.core.data.db.BookDao
 import com.ssk.pagekeeper.core.data.db.BookDatabase
+import com.ssk.pagekeeper.core.data.db.MIGRATION_1_2
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,7 +22,7 @@ object DatabaseModule {
         klass = BookDatabase::class.java,
         name = DATABASE_NAME,
     )
-        .fallbackToDestructiveMigration(dropAllTables = true)
+        .addMigrations(MIGRATION_1_2)
         .build()
 
     @Provides

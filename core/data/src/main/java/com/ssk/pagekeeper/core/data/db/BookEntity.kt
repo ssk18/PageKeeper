@@ -19,6 +19,7 @@ data class BookEntity(
     val filePath: String,
     val dateAddedEpochMillis: Long,
     val isFavorite: Boolean = false,
+    val isFinished: Boolean = false,
 )
 
 @OptIn(ExperimentalTime::class)
@@ -29,7 +30,8 @@ fun BookEntity.toDomain(): Book = Book(
     coverPath = coverPath,
     filePath = filePath,
     dateAdded = Instant.fromEpochMilliseconds(dateAddedEpochMillis),
-    isFavorite = isFavorite
+    isFavorite = isFavorite,
+    isFinished = isFinished
 )
 
 @OptIn(ExperimentalTime::class)
@@ -40,5 +42,6 @@ fun Book.toEntity(): BookEntity = BookEntity(
     coverPath = coverPath,
     filePath = filePath,
     dateAddedEpochMillis = dateAdded.toEpochMilliseconds(),
-    isFavorite = isFavorite
+    isFavorite = isFavorite,
+    isFinished = isFinished
 )
